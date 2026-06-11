@@ -5,20 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artist Studio | Physical 3D Workspace</title>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&family=VT323&display=swap" rel="stylesheet">
-    <style>
-        <style>
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+   <style>
+:root {
+    --desk-wood: #2d241f;
+    --desk-light: #d2b48c;
+    --accent: #a63d40;
+    --paper: #fdfaf0;
+    --gb-body: #948ba8;
+    --gb-screen: #8bac0f;
+    --trans: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#app {
-  width: 100vw;
-  height: 100vh;
-  transform: scale(1);
-  transform-origin: top left;
+/* 🔥 CRITICAL FIX - SCALE PROBLEM */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 🔥 FIX: AI STUDIO LOOK RESTORE */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1a1614;
+}
+
+/* 🔥 DESKTOP CANVAS FIX */
+#safe-zone {
+    width: 95vw;
+    height: 95vh;
+    max-width: 1400px;
+    max-height: 900px;
+    transform: scale(1);
+    transform-origin: center;
+}
+
+/* optional: tighten spacing feel like AI Studio */
+.desk-item {
+    transform-origin: center;
 }
 </style> 
         :root {
