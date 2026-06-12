@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Immersive Tactile Workspace</title>
+    <title>Artist Studio | Physical 3D Workspace</title>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,13 +20,14 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; outline: none; }
 
-        body, html {
-            height: 100%; width: 100%;
-            overflow: hidden;
-            background-color: var(--desk-wood);
+        body {
+            background-color: #1a1614;
+            height: 100vh; width: 100vw;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; font-family: 'Patrick Hand', cursive;
         }
 
-        /* --- THE DESK --- */
+        /* --- THE DESK (IMMERSIVE FULL SCREEN) --- */
         #desk-viewport {
             position: relative;
             width: 100vw; height: 100vh;
@@ -52,14 +53,14 @@
         #sk-trigger {
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 480px; height: 620px;
-            background: #5c2a33; border-radius: 8px 25px 25px 8px;
-            border-left: 35px solid #4a1f26;
+            width: 380px; height: 490px;
+            background: #5c2a33; border-radius: 6px 18px 18px 6px;
+            border-left: 26px solid #4a1f26;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
         #sk-trigger:hover {
-            transform: translate(-50%, calc(-50% - 15px)) scale(1.05);
+            transform: translate(-50%, calc(-50% - 12px)) scale(1.05);
             box-shadow: 0 40px 70px rgba(0,0,0,0.4);
         }
 
@@ -81,8 +82,133 @@
         .gb-desk-dpad { width: 60px; height: 60px; background: #333; clip-path: polygon(35% 0, 65% 0, 65% 35%, 100% 35%, 100% 65%, 65% 65%, 65% 100%, 35% 100%, 35% 65%, 0 65%, 0 35%, 35% 35%); }
         .gb-desk-btn { width: 25px; height: 25px; background: var(--accent); border-radius: 50%; }
 
-        /* --- 3. STORYBOARD STACK (UNTOUCHED) --- */
-        #sb-trigger { top: 6%; left: 7%; width: 440px; height: 320px; }
+        /* --- MP3 PLAYER (DESK VERSION) --- */
+        #mp3-trigger {
+            top: 20%; left: 80%;
+            width: 120px; height: 200px;
+            background: linear-gradient(150deg, #f7f7f7, #cfcfcf);
+            border-radius: 20px;
+            border: 1px solid #bbb;
+            padding: 14px;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            transform: rotate(-4deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        #mp3-trigger:hover {
+            transform: rotate(-4deg) translateY(-12px) scale(1.07);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+        }
+        .mp3-desk-screen {
+            width: 100%; height: 62px;
+            background: #a9c3d1;
+            border: 3px solid #333; border-radius: 6px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-family: 'VT323', monospace; color: #1c2b33; text-align: center;
+            padding: 5px 6px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        #mp3-desk-title { font-size: 0.72rem; font-family: 'Permanent Marker'; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+        #mp3-desk-artist { opacity: 0.7; font-size: 0.65rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; margin-top: 2px; }
+        .mp3-desk-wheel {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: #ececec;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.15);
+            position: relative; flex-shrink: 0;
+        }
+        .mp3-desk-wheel-center {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 28px; height: 28px; border-radius: 50%;
+            background: #dadada; box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+        }
+
+        /* --- MP3 PLAYER OVERLAY (FULL SIZE) --- */
+        .ipod-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .ipod-body {
+            width: 320px; height: 560px;
+            background: linear-gradient(150deg, #fdfdfd, #d4d4d4);
+            border-radius: 36px; border: 1px solid #bbb;
+            padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 28px;
+            box-shadow: 0 70px 130px rgba(0,0,0,0.6);
+        }
+        .ipod-screen {
+            width: 100%; height: 220px;
+            background: #a9c3d1; border: 7px solid #333; border-radius: 12px;
+            padding: 16px 18px; box-shadow: inset 0 0 25px rgba(0,0,0,0.2);
+            font-family: 'VT323', monospace; color: #1c2b33;
+            display: flex; flex-direction: column; gap: 8px;
+            overflow: hidden;
+        }
+        .ipod-screen-header { font-family: 'Permanent Marker'; font-size: 0.95rem; letter-spacing: 2px; border-bottom: 2px solid #1c2b33; padding-bottom: 6px; opacity: 0.8; flex-shrink: 0; }
+        .ipod-screen-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; min-height: 0; overflow: hidden; width: 100%; }
+        .ipod-menu-list { flex: 1; width: 100%; display: flex; flex-direction: column; gap: 1px; overflow: hidden; font-size: 1.05rem; min-height: 0; justify-content: center; }
+        .ipod-menu-item { padding: 5px 8px; border-radius: 4px; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ipod-menu-item.active { background: #1c2b33; color: #a9c3d1; }
+        #mp3-title { font-size: 1.35rem; font-family: 'Permanent Marker'; color: #1c2b33; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+        #mp3-artist { font-size: 1rem; opacity: 0.75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+        .ipod-progress { width: 100%; height: 6px; background: rgba(0,0,0,0.15); border-radius: 3px; overflow: hidden; margin-top: 8px; flex-shrink: 0; }
+        .ipod-progress-fill { height: 100%; width: 0%; background: #1c2b33; transition: width 0.2s linear; }
+        .ipod-time-row { display: flex; justify-content: space-between; font-size: 0.85rem; opacity: 0.7; flex-shrink: 0; width: 100%; }
+        .ipod-wheel {
+            width: 250px; height: 250px; border-radius: 50%;
+            background: #ececec; box-shadow: inset 0 0 18px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .ipod-wheel-center {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 95px; height: 95px; border-radius: 50%;
+            background: #dadada; box-shadow: inset 0 0 10px rgba(0,0,0,0.25);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; color: #888; transition: transform 0.1s var(--snap);
+        }
+        .ipod-wheel-center:active { transform: translate(-50%, -50%) scale(0.92); box-shadow: inset 0 0 14px rgba(0,0,0,0.35); }
+        .mp3-desk-wheel { cursor: pointer; transition: transform 0.08s var(--snap), box-shadow 0.08s ease; }
+        .mp3-desk-wheel:active, .mp3-desk-wheel.pressed {
+            transform: scale(0.94);
+            box-shadow: inset 0 0 14px rgba(0,0,0,0.35);
+        }
+        .ipod-wheel-btn {
+            position: absolute; background: none; border: none; cursor: pointer;
+            font-family: 'Permanent Marker'; color: #999;
+            transition: color 0.12s ease, filter 0.12s ease;
+            padding: 14px; display: flex; align-items: center; justify-content: center;
+        }
+        .ipod-wheel-btn:hover { color: #666; }
+        /* Physical press: icon moves inward (toward wheel center) + dims */
+        .ipod-btn-menu { top: 8px; left: 50%; transform: translateX(-50%); font-size: 0.95rem; letter-spacing: 2px; }
+        .ipod-btn-prev { left: 8px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; }
+        .ipod-btn-next { right: 8px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; }
+        .ipod-btn-play { bottom: 8px; left: 50%; transform: translateX(-50%); font-size: 1.6rem; }
+        /* Pressed state — each button moves inward toward wheel center */
+        .ipod-btn-menu.pressed    { transform: translateX(-50%) translateY(3px);  color: #444; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4)); }
+        .ipod-btn-prev.pressed    { transform: translateY(-50%) translateX(3px);  color: #444; filter: drop-shadow(1px 0 1px rgba(0,0,0,0.4)); }
+        .ipod-btn-next.pressed    { transform: translateY(-50%) translateX(-3px); color: #444; filter: drop-shadow(-1px 0 1px rgba(0,0,0,0.4)); }
+        .ipod-btn-play.pressed    { transform: translateX(-50%) translateY(-3px); color: #444; filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.4)); }
+        /* Scrolling title marquee */
+        .mp3-title-scroll-wrap {
+            width: 100%; overflow: hidden; position: relative;
+            display: flex; justify-content: center;
+        }
+        .mp3-title-inner {
+            white-space: nowrap;
+            font-family: 'Permanent Marker'; font-size: 1.35rem; color: #1c2b33;
+            display: inline-block;
+        }
+        .mp3-title-inner.scrolling {
+            animation: mp3-marquee var(--scroll-dur, 8s) linear infinite;
+            padding-right: 60px;
+        }
+        @keyframes mp3-marquee {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(var(--scroll-dist, -50%)); }
+        }
+
+        /* --- 3. STORYBOARD (ADJUSTED POSITION) --- */
+        #sb-trigger { 
+            top: 26%;  /* Adjusted slightly downward from previous 22% */
+            left: 7%; 
+            width: 440px; height: 320px; 
+        }
         .sb-paper-static {
             width: 440px; height: 320px; 
             background: white; border: 1px solid #ddd;
@@ -119,9 +245,9 @@
         }
         .overlay.active { display: block; opacity: 1; }
         .popup-panel { position: relative; width: 100%; height: 100%; }
-        .close-hint { position: fixed; top: 40px; right: 40px; color: white; cursor: pointer; font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.6); padding: 12px 30px; border-radius: 40px; z-index: 999999; }
+        .close-hint { position: fixed; top: 40px; right: 40px; color: white; cursor: pointer; font-size: 14px; font-weight: bold; background: rgba(0,0,0,0.6); padding: 12px 30px; border-radius: 40px; z-index: 999999; }
 
-        /* --- STACK POPUP (UNTOUCHED) --- */
+        /* --- STACK POPUP --- */
         .stack-paper { 
             background: white; width: 640px; height: 480px;
             padding: 30px; border: 1px solid #ddd; 
@@ -136,129 +262,506 @@
         /* --- SKETCHBOOK OVERLAY --- */
         .sk-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .sk-unit { 
-            width: 1200px; height: 650px; 
-            display: flex; align-items: center; 
-            transform: scale(1.25); transition: transform 0.5s var(--trans);
-            position: relative;
+            width: min(1600px, 95vw); height: min(860px, 88vh); display: flex; align-items: stretch; 
+            transform: scale(1); transition: transform 0.5s var(--trans); position: relative;
+            overflow: visible;
         }
         .book-tabs-left { display: flex; flex-direction: column; gap: 12px; margin-right: -15px; z-index: 5; }
         .book-tab { width: 65px; height: 120px; writing-mode: vertical-rl; text-orientation: mixed; font-size: 13px; font-weight: bold; color: white; border-radius: 12px 0 0 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s var(--snap); box-shadow: -5px 5px 15px rgba(0,0,0,0.15); position: relative; }
         .book-tab:hover { transform: translateX(-15px) translateY(-3px) scale(1.05); box-shadow: -12px 12px 30px rgba(0,0,0,0.3); filter: brightness(1.1); z-index: 6; }
         .book-tab:active { transform: translateX(5px) scale(0.96); transition: transform 0.1s var(--trans); }
         .tab-red { background: #e74c3c; } .tab-blue { background: #3498db; } .tab-yellow { background: #f1c40f; } .tab-green { background: #2ecc71; }
-        .book-spread { flex: 1; height: 100%; background: var(--paper); display: flex; box-shadow: 0 60px 150px rgba(0,0,0,0.6); border-radius: 4px 15px 15px 4px; overflow: hidden; z-index: 10; gap: 15px; background: linear-gradient(90deg, #fdfaf0 49%, #e2ded0 50%, #fdfaf0 51%); }
-        .book-page { flex: 1; padding: 60px; display: flex; flex-direction: column; justify-content: center; position: relative; cursor: pointer; transition: background 0.3s; }
-        .book-page.left { background: linear-gradient(to right, #fdfaf0 92%, #e5e1d5 100%); }
-        .book-page.right { background: linear-gradient(to left, #fdfaf0 92%, #e5e1d5 100%); }
-        .book-page:hover { background: #f7f2e8; }
-        .page-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 50px; opacity: 0.4; color: var(--accent); font-weight: bold; }
-
-        /* --- 🎮 GAMEBOY (REFINED ERGONOMICS) --- */
-        .gb-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .gb-unit { 
-            width: 1100px; 
-            height: 650px; 
-            transform: scale(1.1);
+        .book-spread { flex: 1; height: 100%; display: flex; align-items: stretch; box-shadow: 0 60px 150px rgba(0,0,0,0.6); border-radius: 4px 15px 15px 4px; overflow: hidden; z-index: 10; gap: 0; background: #fdfaf0; position: relative; }
+        .book-page { flex: 1; height: 100%; padding: 0; display: flex; flex-direction: column; position: relative; cursor: pointer; transition: filter 0.25s ease; overflow: hidden; }
+        .book-page.left { background: linear-gradient(to right, #fdfaf0 93%, #d4d0c4 99%, #c8c4b6 100%); }
+        .book-page.right { background: linear-gradient(to left, #fdfaf0 93%, #d4d0c4 99%, #c8c4b6 100%); }
+        .book-page:hover { filter: brightness(0.97); }
+        /* full-page click capture layer — must be above all decorative children */
+        .book-page-click { position: absolute; inset: 0; z-index: 20; cursor: pointer; background: transparent; }
+        .book-page-inner { position: absolute; inset: 0; padding: 50px 60px; display: flex; flex-direction: column; pointer-events: none; z-index: 2; }
+        .page-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 50px; opacity: 0.25; color: var(--accent); font-weight: bold; pointer-events: none; z-index: 2; transition: opacity 0.25s; }
+        .book-page:hover .page-arrow { opacity: 0.55; }
+        /* page title — ink on paper, no box */
+        .book-page-inner .page-title, .page-flip-content .page-title {
+            font-family: 'Permanent Marker'; font-size: 2.4rem; color: var(--accent);
+            margin-bottom: 24px; margin-top: 10px; line-height: 1.1;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.06);
+            flex-shrink: 0;
         }
+        /* art placeholder — consistent paper-toned background on every page */
+        .book-page-inner .page-art, .page-flip-content .page-art {
+            flex: 1;
+            background: rgba(0,0,0,0.04);
+            border-radius: 3px;
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(0,0,0,0.18); font-size: 1.3rem; font-family: 'VT323', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* --- BOOK STITCH (CENTER BINDING) --- */
+        .book-stitch {
+            position: absolute; top: 0; bottom: 0; left: 50%; width: 16px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, rgba(0,0,0,0.08), rgba(0,0,0,0.18), rgba(0,0,0,0.08));
+            z-index: 12; pointer-events: none;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
+        }
+        .book-stitch::before, .book-stitch::after {
+            content: ''; position: absolute; top: 0; bottom: 0; width: 1px;
+            background: repeating-linear-gradient(to bottom, transparent 0, transparent 10px, rgba(166,61,64,0.5) 10px, rgba(166,61,64,0.5) 16px);
+        }
+        .book-stitch::before { left: 4px; }
+        .book-stitch::after { right: 4px; }
+        .stitch-x {
+            width: 14px; height: 14px; opacity: 0.45; flex-shrink: 0;
+            background:
+                linear-gradient(45deg, transparent 45%, var(--accent) 45%, var(--accent) 55%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, var(--accent) 45%, var(--accent) 55%, transparent 55%);
+        }
+
+        /* --- PAGE TURN ANIMATION (disabled — instant switch) --- */
+        .page-flip { display: none !important; }
+
+        /* --- 🎮 GAMEBOY --- */
+        .gb-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .gb-unit { width: 1260px; height: 650px; transform: scale(1.1); }
         .gb-shell { 
             background: var(--gb-body); width: 100%; height: 100%; 
             display: flex; padding: 60px; gap: 60px; 
             border-radius: 45px; 
-            box-shadow: 0 80px 150px rgba(0,0,0,0.7), inset 0 4px 10px rgba(255,255,255,0.2); 
+            box-shadow: 0 80px 150px rgba(0,0,0,0.7); 
             border-bottom: 25px solid #6c647c;
             position: relative;
         }
         .gb-screen-large { 
-            flex: 3; 
-            background: var(--gb-screen); 
-            border: 25px solid #2d3322; 
-            border-radius: 15px; 
-            padding: 30px; 
-            font-family: 'VT323', monospace; 
-            color: #2d3322;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+            flex: 3; background: var(--gb-screen); border: 25px solid #2d3322; border-radius: 15px; padding: 30px; 
+            font-family: 'VT323', monospace; color: #2d3322; box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+            position: relative; overflow: hidden;
         }
-        
-        .gb-side-controls {
-            flex: 1.2; display: flex; flex-direction: column; 
-            align-items: center; 
-            justify-content: flex-end; /* Lowered controls for ergonomics */
-            gap: 50px; /* Precise distance between D-pad and AB buttons */
-            padding-bottom: 20px;
-        }
+        .gb-pixel-grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(10, 1fr); z-index: 1000; pointer-events: none; display: none; }
+        .pixel-square { background: #2d3322; transform: scale(0); opacity: 0; }
+        .pixel-square.active { animation: pixel-in-out 0.8s forwards cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes pixel-in-out { 0% { transform: scale(0); opacity: 0; } 45%, 55% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0); opacity: 0; } }
 
-        /* High Fidelity D-PAD */
-        .d-pad-wrapper { 
-            position: relative; 
-            width: 180px; height: 180px; 
-            background: rgba(0,0,0,0.05);
-            border-radius: 50%;
-        }
-        .pad-btn { 
-            position: absolute; 
-            background: linear-gradient(145deg, #444, #222);
-            border: none; 
-            width: 60px; height: 60px; 
-            cursor: pointer; 
-            z-index: 100; 
-            border-radius: 6px;
-            color: rgba(255,255,255,0.2);
-            font-size: 24px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1);
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-        .pad-btn:active {
-            transform: translate(2px, 2px) scale(0.95);
-            box-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-            background: #111;
-        }
-        .up { left: 60px; top: 0; }
-        .down { left: 60px; bottom: 0; }
-        .left { left: 0; top: 60px; }
-        .right { right: 0; top: 60px; }
-        .pad-center { 
-            position: absolute; width: 60px; height: 60px; left: 60px; top: 60px; 
-            background: #2a2a2a; z-index: 90; 
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .pad-center::after {
-            content: ''; width: 30px; height: 30px; border-radius: 50%;
-            background: rgba(0,0,0,0.3); box-shadow: inset 0 2px 5px rgba(255,255,255,0.1);
-        }
-
-        /* Tactile A/B Buttons */
-        .gb-btn-large { 
-            width: 100px; height: 100px; 
-            background: linear-gradient(145deg, var(--accent), #822f32);
-            border-radius: 50%; border: none; 
-            color: white; font-weight: bold; font-size: 28px; 
-            cursor: pointer; 
-            box-shadow: 6px 12px 20px rgba(0,0,0,0.4), inset 0 4px 10px rgba(255,255,255,0.2); 
-            transition: transform 0.1s var(--snap), box-shadow 0.1s var(--snap);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .gb-btn-large:active { 
-            transform: translateY(6px) scale(0.96); 
-            box-shadow: 2px 4px 8px rgba(0,0,0,0.6), inset 0 2px 5px rgba(0,0,0,0.3); 
-        }
+        .gb-side-controls { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 50px; padding-bottom: 20px; }
+        .d-pad-wrapper { position: relative; width: 180px; height: 180px; background: rgba(0,0,0,0.05); border-radius: 50%; }
+        .pad-btn { position: absolute; background: linear-gradient(145deg, #444, #222); border: none; width: 60px; height: 60px; cursor: pointer; z-index: 100; border-radius: 6px; color: rgba(255,255,255,0.2); font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 4px 4px 10px rgba(0,0,0,0.4); }
+        .pad-btn:active { transform: translate(2px, 2px) scale(0.95); background: #111; }
+        .up { left: 60px; top: 0; } .down { left: 60px; bottom: 0; } .left { left: 0; top: 60px; } .right { right: 0; top: 60px; }
+        .pad-center { position: absolute; width: 60px; height: 60px; left: 60px; top: 60px; background: #2a2a2a; z-index: 90; box-shadow: 4px 4px 10px rgba(0,0,0,0.4); }
+        .gb-btn-large { width: 100px; height: 100px; background: linear-gradient(145deg, var(--accent), #822f32); border-radius: 50%; border: none; color: white; font-weight: bold; font-size: 28px; cursor: pointer; box-shadow: 6px 12px 20px rgba(0,0,0,0.4); transition: transform 0.1s var(--snap); }
+        .gb-btn-large:active { transform: translateY(6px) scale(0.96); }
 
         /* --- 3D CARD --- */
         .card-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .card-stage { perspective: 2500px; width: 700px; height: 450px; transform: scale(1.15); }
-        .card-3d { width: 100%; height: 100%; transform-style: preserve-3d; cursor: grab; position: relative; }
+        .card-3d { width: 100%; height: 100%; transform-style: preserve-3d; cursor: grab; position: relative; transition: transform 0.1s ease-out; }
         .card-front, .card-back { position: absolute; inset: 0; backface-visibility: hidden; background: #fff; border-radius: 15px; padding: 60px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 30px 70px rgba(0,0,0,0.3); }
         .card-back { transform: rotateY(180deg); background: #fafafa; }
 
         .label-marker { font-family: 'Permanent Marker'; font-size: 1.6rem; color: var(--accent); }
+
+        /* --- POLAROID PILE (DESK) --- */
+        #polaroid-pile {
+            top:6%; left:5%;
+            width: 560px; height: 175px;
+            z-index: 10;
+        }
+        .polaroid-item {
+            position: absolute;
+            width: 108px; height: 130px;
+            background: #fdfdfd;
+            padding: 8px 8px 22px 8px;
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.25);
+            border-radius: 2px;
+            transition: transform 0.4s var(--bouncy), box-shadow 0.4s ease;
+        }
+        .polaroid-item .pl-photo {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #cbb89a, #a98f6b);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(0,0,0,0.25); font-size: 0.65rem;
+            font-family: 'VT323', monospace;
+        }
+        .polaroid-item .pl-label {
+            position: absolute; bottom: 4px; left: 0; right: 0; text-align: center;
+            font-family: 'Permanent Marker'; font-size: 0.7rem; color: #555;
+        }
+        .polaroid-item:hover {
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+            z-index: 50 !important;
+        }
+        /* group lift: all polaroids rise slightly together when the pile is hovered (upward only, away from storyboard) */
+        #polaroid-pile:hover .polaroid-item { transform: translateY(-8px); }
+        #polaroid-pile:hover #pl-item-1 { transform: translate(-12px, -14px) rotate(-14deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-2 { transform: translate(-6px, -18px) rotate(2deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-3 { transform: translate(0px, -12px) rotate(20deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-4 { transform: translate(6px, -18px) rotate(-8deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-5 { transform: translate(12px, -14px) rotate(12deg) scale(1.08); }
+        /* individual hover lifts that single photo a bit further, on top of the group */
+        #pl-item-1:hover { transform: translate(-16px, -20px) rotate(-14deg) scale(1.12) !important; }
+        #pl-item-2:hover { transform: translate(-8px, -24px) rotate(2deg) scale(1.12) !important; }
+        #pl-item-3:hover { transform: translate(0px, -18px) rotate(20deg) scale(1.12) !important; }
+        #pl-item-4:hover { transform: translate(8px, -24px) rotate(-8deg) scale(1.12) !important; }
+        #pl-item-5:hover { transform: translate(16px, -20px) rotate(12deg) scale(1.12) !important; }
+
+        /* --- CLOTHESLINE OVERLAY --- */
+        #clothesline-overlay .line-wrapper {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .clothesline-rope {
+            position: absolute;
+            top: calc(22% - 1px);
+            left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(to bottom, #d8c8a8, #a8916a);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .clothesline-track {
+            position: absolute;
+            top: 22%;
+            left: 0;
+            height: 480px;
+            display: flex;
+            align-items: flex-start;
+            gap: 60px;
+            padding: 0 0 0 8vw;
+            cursor: grab;
+            transition: left 0.6s var(--snap);
+            z-index: 2;
+            will-change: left;
+        }
+        .hung-photo:last-child { margin-right: 20vw; }
+
+        .hung-photo {
+            position: relative;
+            width: 260px; height: 320px;
+            background: #fdfdfd;
+            padding: 18px 18px 50px 18px;
+            border-radius: 3px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+            flex-shrink: 0;
+            transform-origin: top center;
+            animation: photo-sway 5s ease-in-out infinite;
+            transition: transform 0.4s var(--bouncy), box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+        .hung-photo:nth-child(odd) { animation-delay: -1.5s; }
+        .hung-photo:nth-child(3n) { animation-duration: 6.5s; }
+        .hung-photo:hover {
+            transform: translateY(-12px) scale(1.06) rotate(0deg) !important;
+            box-shadow: 0 30px 55px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+        @keyframes photo-sway {
+            0%, 100% { transform: rotate(-2.5deg); }
+            50% { transform: rotate(2.5deg); }
+        }
+        .hung-photo .pl-photo {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #cbb89a, #a98f6b);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(0,0,0,0.3); font-family: 'VT323', monospace; font-size: 1.1rem;
+            text-align: center; padding: 10px;
+        }
+        .hung-photo .pl-label {
+            position: absolute; bottom: 12px; left: 0; right: 0; text-align: center;
+            font-family: 'Permanent Marker'; font-size: 1.1rem; color: #555;
+        }
+        .clothespin {
+            position: absolute;
+            top: -15px; left: 50%; transform: translateX(-50%);
+            width: 22px; height: 42px;
+            z-index: 3;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
+        }
+        .clothesline-hint {
+            position: absolute; bottom: 6%; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.7); font-family: 'Permanent Marker';
+            font-size: 1.1rem; letter-spacing: 1px; pointer-events: none;
+            background: rgba(0,0,0,0.4); padding: 8px 22px; border-radius: 30px;
+        }
+        /* --- POLAROID ZOOM OVERLAY (card-style 3D) --- */
+        .polaroid-stage { perspective: 2500px; width: 500px; height: 580px; }
+        .polaroid-3d {
+            width: 100%; height: 100%;
+            transform-style: preserve-3d; cursor: grab; position: relative;
+            transition: transform 0.1s ease-out;
+            background: #fdfdfd;
+            padding: 30px 30px 70px 30px;
+            border-radius: 4px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+        }
+        .polaroid-3d-back {
+            position: absolute; inset: 0;
+            background: #ffffff;
+            border-radius: 4px;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+        }
+        .polaroid-3d-front {
+            position: absolute; inset: 0;
+            padding: 30px 30px 70px 30px;
+            backface-visibility: hidden;
+            display: flex; flex-direction: column;
+        }
+        .polaroid-3d-front .pl-photo-large {
+            width: 100%; flex: 1;
+            background: linear-gradient(135deg, #cbb89a, #a98f6b);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(0,0,0,0.3); font-family: 'VT323', monospace; font-size: 1.4rem;
+        }
+        .polaroid-3d-front .pl-label-large {
+            text-align: center; padding-top: 12px;
+            font-family: 'Permanent Marker'; font-size: 1.4rem; color: #555;
+        }
+#polaroid-overlay { z-index: 1100; }
+
+        /* --- DIARY (DESK) --- */
+        #diary-trigger {
+            top: 71%; left: 62%;
+            width: 145px; height: 185px;
+            background: #2c3e50;
+            border-radius: 5px 16px 16px 5px;
+            border-left: 16px solid #1a252f;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+            padding-bottom: 24px; gap: 8px;
+            transition: transform 0.4s var(--bouncy), box-shadow 0.4s ease;
+            z-index: 12;
+            transform: rotate(-12deg);
+        }
+        #diary-trigger:hover {
+            transform: rotate(-12deg) translateY(-12px) scale(1.06);
+            box-shadow: 0 30px 55px rgba(0,0,0,0.4);
+        }
+        #diary-trigger.unlocked {
+            cursor: pointer;
+        }
+        #diary-trigger.unlocked:hover {
+            transform: rotate(-12deg) translateY(-14px) scale(1.08);
+        }
+        .diary-title-text {
+            font-family: 'Permanent Marker'; color: #c8b99a;
+            font-size: 0.8rem; letter-spacing: 2px; opacity: 0.8;
+        }
+        /* lock hasp on diary */
+        .diary-lock {
+            width: 46px; height: 52px;
+            position: relative; display: flex; flex-direction: column; align-items: center;
+        }
+        .diary-lock-shackle {
+            width: 26px; height: 22px;
+            border: 5px solid #c0a060;
+            border-bottom: none; border-radius: 13px 13px 0 0;
+            margin-bottom: -2px;
+            transition: transform 0.5s var(--bouncy), opacity 0.3s;
+        }
+        .diary-lock-body {
+            width: 42px; height: 30px;
+            background: linear-gradient(145deg, #d4a830, #a07820);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+        .diary-lock-keyhole {
+            width: 8px; height: 13px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 4px 4px 0 0;
+        }
+        /* unlocked state */
+        #diary-trigger.unlocked .diary-lock-shackle {
+            transform: rotate(35deg) translateX(10px) translateY(-6px);
+        }
+
+        /* --- KEY (DESK) --- */
+        #key-item {
+            top: 88%; left: 12%;
+            width: 120px; height: 54px;
+            cursor: grab;
+            z-index: 20;
+            transition: transform 0.3s var(--bouncy), box-shadow 0.3s ease;
+            transform: rotate(-20deg);
+        }
+        #key-item:hover { transform: rotate(-20deg) scale(1.12) translateY(-5px); }
+        #key-item.dragging { cursor: grabbing; transition: none; z-index: 200; }
+        #key-item.used { cursor: default; }
+
+        /* --- DIARY OVERLAY --- */
+        #diary-overlay { z-index: 1200; }
+        .diary-book-wrapper {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* open book spread */
+        .diary-book {
+            width: min(1100px, 94vw);
+            height: min(660px, 86vh);
+            display: flex;
+            position: relative;
+            box-shadow: 0 80px 160px rgba(0,0,0,0.75);
+            border-radius: 4px 12px 12px 4px;
+            perspective: 2000px;
+        }
+
+        /* spine shadow in the middle */
+        .diary-spine {
+            position: absolute; top: 0; bottom: 0;
+            left: 50%; width: 22px; transform: translateX(-50%);
+            background: linear-gradient(90deg, rgba(0,0,0,0.18), rgba(0,0,0,0.38), rgba(0,0,0,0.18));
+            z-index: 10; pointer-events: none;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;
+        }
+        .diary-spine::before, .diary-spine::after {
+            content: ''; position: absolute; top: 0; bottom: 0; width: 1px;
+            background: repeating-linear-gradient(to bottom, transparent 0, transparent 10px, rgba(44,62,80,0.6) 10px, rgba(44,62,80,0.6) 16px);
+        }
+        .diary-spine::before { left: 5px; } .diary-spine::after { right: 5px; }
+
+        /* left cover/page */
+        .diary-cover-left {
+            width: 60px; flex-shrink: 0;
+            background: linear-gradient(to right, #1a252f, #2c3e50);
+            border-radius: 6px 0 0 6px;
+            box-shadow: inset -8px 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* right cover */
+        .diary-cover-right {
+            width: 60px; flex-shrink: 0;
+            background: linear-gradient(to left, #1a252f, #2c3e50);
+            border-radius: 0 6px 6px 0;
+            box-shadow: inset 8px 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* page halves */
+        .diary-page-left, .diary-page-right {
+            flex: 1; height: 100%;
+            background: #fdf9f0;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .diary-page-left {
+            background: linear-gradient(to right, #f5f0e4, #fdf9f0);
+            box-shadow: inset -4px 0 12px rgba(0,0,0,0.07);
+        }
+        .diary-page-right {
+            background: linear-gradient(to left, #f5f0e4, #fdf9f0);
+            box-shadow: inset 4px 0 12px rgba(0,0,0,0.07);
+        }
+
+        /* ruled lines */
+        .diary-page-left::before, .diary-page-right::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: repeating-linear-gradient(to bottom, transparent, transparent 33px, rgba(166,61,64,0.1) 33px, rgba(166,61,64,0.1) 34px);
+            pointer-events: none; z-index: 0;
+        }
+
+        /* red margin line on left page */
+        .diary-page-left::after {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 52px; width: 1.5px;
+            background: rgba(200,80,80,0.25); z-index: 0; pointer-events: none;
+        }
+
+        .diary-page-inner {
+            position: relative; z-index: 2;
+            padding: 36px 44px 24px 44px;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .diary-page-left .diary-page-inner { padding-left: 62px; }
+
+        .diary-pg-date {
+            font-family: 'VT323', monospace; font-size: 0.95rem;
+            color: #aaa; margin-bottom: 8px; flex-shrink: 0;
+        }
+        .diary-pg-title {
+            font-family: 'Permanent Marker'; color: var(--accent);
+            font-size: 1.55rem; margin-bottom: 18px; flex-shrink: 0;
+            border-bottom: 2px solid rgba(166,61,64,0.25); padding-bottom: 8px;
+            line-height: 1.2;
+        }
+        .diary-pg-body {
+            flex: 1; overflow-y: auto; font-size: 1rem;
+            line-height: 2.06; color: #3a2a1a;
+            font-family: 'Patrick Hand', cursive;
+            scrollbar-width: none;
+        }
+        .diary-pg-body::-webkit-scrollbar { display: none; }
+        .diary-pg-body p { margin-bottom: 1em; }
+
+        /* right page label / page number */
+        .diary-pg-num {
+            font-family: 'VT323', monospace; font-size: 0.9rem; color: #ccc;
+            text-align: right; flex-shrink: 0; margin-top: 10px;
+        }
+        .diary-pg-num-left {
+            font-family: 'VT323', monospace; font-size: 0.9rem; color: #ccc;
+            text-align: left; flex-shrink: 0; margin-top: 10px;
+        }
+
+        /* page turn buttons */
+        .diary-turn-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 44px; height: 80px;
+            background: rgba(44,62,80,0.08);
+            border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; color: rgba(44,62,80,0.35);
+            transition: background 0.2s, color 0.2s;
+            z-index: 20; border-radius: 4px;
+        }
+        .diary-turn-btn:hover { background: rgba(44,62,80,0.16); color: rgba(44,62,80,0.7); }
+        .diary-turn-btn:disabled { opacity: 0; cursor: default; }
+        .diary-turn-left { left: 66px; }
+        .diary-turn-right { right: 66px; }
+
+        /* key drop zone glow */
+        #diary-trigger.key-hover {
+            box-shadow:
+                0 0 0 4px #d4a830,
+                0 0 40px 10px rgba(255, 215, 100, 0.75),
+                0 0 90px 30px rgba(255, 200, 60, 0.45),
+                0 20px 50px rgba(212,168,48,0.4);
+            animation: diary-glow-pulse 1s ease-in-out infinite;
+        }
+        @keyframes diary-glow-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 4px #d4a830,
+                    0 0 40px 10px rgba(255, 215, 100, 0.75),
+                    0 0 90px 30px rgba(255, 200, 60, 0.45),
+                    0 20px 50px rgba(212,168,48,0.4);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 6px #ffe27a,
+                    0 0 60px 18px rgba(255, 225, 120, 0.9),
+                    0 0 120px 45px rgba(255, 210, 80, 0.55),
+                    0 20px 50px rgba(212,168,48,0.4);
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="desk-viewport">
     <div id="sk-trigger" class="desk-item" onclick="openUI('sk-overlay')">
-        <span style="color:#f2e8cf; font-family:'Permanent Marker'; border:4px solid #f2e8cf; padding:12px 30px; font-size:2.2rem; letter-spacing:3px;">PORTFOLIO</span>
+        <span style="color:#f2e8cf; font-family:'Permanent Marker'; border:3px solid #f2e8cf; padding:8px 18px; font-size:1.4rem; letter-spacing:2px;">PORTFOLIO</span>
+    </div>
+
+    <div id="mp3-trigger" class="desk-item" onclick="openUI('mp3-overlay')">
+        <div class="mp3-desk-screen">
+            <div id="mp3-desk-title">Billie Jean</div>
+            <div id="mp3-desk-artist">Michael Jackson</div>
+        </div>
+        <div class="mp3-desk-wheel" onclick="mp3DeskWheel(event)"><div class="mp3-desk-wheel-center"></div></div>
     </div>
 
     <div id="gb-trigger" class="desk-item" onclick="openUI('gb-overlay')">
@@ -269,23 +772,97 @@
         </div>
     </div>
 
-    <div id="sb-trigger" class="desk-item" onclick="openUI('paper-overlay')">
+    <div id="sb-trigger" class="desk-item" onclick="openUI('paper-overlay')" style="top:34%; left:7%;">
         <div class="sb-paper-static" style="transform: rotate(-8deg);"></div>
         <div class="sb-paper-static" style="transform: rotate(4deg); left: 20px; top: 10px;"></div>
         <div class="sb-paper-static" style="transform: rotate(10deg); left: 40px; top: 25px;"></div>
         <div class="label-marker" style="position:absolute; top:340px; left:50px;">STORYBOARDS</div>
     </div>
 
+    <div id="polaroid-pile" class="desk-item" onclick="openUI('clothesline-overlay')">
+        <div id="pl-item-1" class="polaroid-item" style="top:5%; left:0%; transform: rotate(-9deg);">
+            <div class="pl-photo">JAM_01</div>
+            <div class="pl-label">day one</div>
+        </div>
+        <div id="pl-item-2" class="polaroid-item" style="top:0%; left:23%; transform: rotate(5deg);">
+            <div class="pl-photo">JAM_02</div>
+            <div class="pl-label">all-nighter</div>
+        </div>
+        <div id="pl-item-3" class="polaroid-item" style="top:8%; left:46%; transform: rotate(-3deg);">
+            <div class="pl-photo">JAM_03</div>
+            <div class="pl-label">ship it!</div>
+        </div>
+        <div id="pl-item-4" class="polaroid-item" style="top:2%; left:69%; transform: rotate(7deg);">
+            <div class="pl-photo">JAM_04</div>
+            <div class="pl-label">coffee run</div>
+        </div>
+        <div id="pl-item-5" class="polaroid-item" style="top:9%; left:92%; transform: rotate(-6deg);">
+            <div class="pl-photo">JAM_05</div>
+            <div class="pl-label">wrap up</div>
+        </div>
+    </div>
+
     <div id="card-trigger" class="desk-item" onclick="openUI('card-overlay')">
         <div class="label-marker" style="line-height: 1;">YOUR NAME</div>
         <div style="font-size: 14px; color: #999; margin-top:10px; letter-spacing:1px; font-weight: bold;">LEAD ARTIST & DEV</div>
     </div>
+
+    <!-- DIARY -->
+    <div id="diary-trigger" class="desk-item">
+        <div class="diary-title-text">MY DIARY</div>
+        <div class="diary-lock">
+            <div class="diary-lock-shackle"></div>
+            <div class="diary-lock-body"><div class="diary-lock-keyhole"></div></div>
+        </div>
+    </div>
+
+    <!-- KEY -->
+    <div id="key-item" class="desk-item">
+        <svg viewBox="0 0 120 54" xmlns="http://www.w3.org/2000/svg" width="120" height="54">
+            <!-- key ring -->
+            <circle cx="24" cy="27" r="18" fill="none" stroke="#c0a030" stroke-width="6"/>
+            <circle cx="24" cy="27" r="9" fill="#d4a830"/>
+            <!-- key shaft -->
+            <rect x="40" y="22" width="68" height="10" rx="5" fill="#d4a830"/>
+            <!-- key teeth -->
+            <rect x="82" y="32" width="8" height="11" rx="2.5" fill="#c0901a"/>
+            <rect x="96" y="32" width="8" height="8" rx="2.5" fill="#c0901a"/>
+            <!-- shine -->
+            <ellipse cx="21" cy="21" rx="6" ry="3.5" fill="rgba(255,255,200,0.35)" transform="rotate(-20,21,21)"/>
+        </svg>
+        <div style="font-family:'Permanent Marker'; font-size:0.65rem; color:rgba(255,255,255,0.4); text-align:center; margin-top:2px; pointer-events:none;">drag to lock</div>
+    </div>
 </div>
 
-<!-- OVERLAYS -->
+<!-- --- OVERLAYS --- -->
+
 <div id="paper-overlay" class="overlay" onclick="closeAll(event)">
-    <div class="close-hint" onclick="closeAll(event)">✕ BACK TO DESK</div>
+    <div class="close-hint" onclick="closeAll(event)">✕ BACK</div>
     <div id="paper-stack-container" style="width:100%; height:100%; position:relative;"></div>
+</div>
+
+<div id="polaroid-overlay" class="overlay" onclick="if(!cardInteracting) closePolaroidZoom(event)">
+    <div class="close-hint" onclick="closePolaroidZoom(event)">✕ BACK TO LINE</div>
+    <div class="card-wrapper" onclick="closePolaroidZoom(event)">
+        <div class="polaroid-stage" onclick="event.stopPropagation()">
+            <div class="polaroid-3d" id="polaroid3d">
+                <div class="polaroid-3d-front">
+                    <div class="pl-photo-large" id="polaroid-photo-large"></div>
+                    <div class="pl-label-large" id="polaroid-label-large"></div>
+                </div>
+                <div class="polaroid-3d-back"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="clothesline-overlay" class="overlay" onclick="closeAll(event)">
+    <div class="close-hint" onclick="closeAll(event)">✕ BACK</div>
+    <div class="line-wrapper" onclick="event.stopPropagation()">
+        <div class="clothesline-rope"></div>
+        <div class="clothesline-track" id="clothesline-track"></div>
+        <div class="clothesline-hint">← drag to slide photos →</div>
+    </div>
 </div>
 
 <div id="sk-overlay" class="overlay" onclick="closeAll(event)">
@@ -299,27 +876,81 @@
                 <button class="book-tab tab-green" onclick="openSection('illustration')">ART</button>
             </div>
             <div class="book-spread">
-                <div class="book-page left" onclick="prevPage()">
+                <div class="book-page left">
+                    <div class="book-page-click" onclick="prevPage(); event.stopPropagation();"></div>
                     <span class="page-arrow" style="left:20px;">←</span>
-                    <h2 id="page-l-title" class="label-marker" style="font-size: 2.8rem;"></h2>
-                    <div style="flex:1; background:#eee; margin:30px 0; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; color:#ccc; font-size: 1.5rem;" id="page-l-art"></div>
+                    <div class="book-page-inner">
+                        <h2 id="page-l-title" class="page-title"></h2>
+                        <div class="page-art" id="page-l-art"></div>
+                    </div>
                 </div>
-                <div class="book-page right" onclick="nextPage()">
+                <div class="book-page right">
+                    <div class="book-page-click" onclick="nextPage(); event.stopPropagation();"></div>
                     <span class="page-arrow" style="right:20px;">→</span>
-                    <h2 id="page-r-title" class="label-marker" style="font-size: 2.8rem; color: #333;"></h2>
-                    <div style="flex:1; background:#f9f9f9; margin:20px 0; border:1px solid #eee; display:flex; align-items:center; justify-content:center; color:#ccc; font-size: 1.5rem;" id="page-r-art"></div>
+                    <div class="book-page-inner">
+                        <h2 id="page-r-title" class="page-title"></h2>
+                        <div class="page-art" id="page-r-art"></div>
+                    </div>
+                </div>
+                <div class="book-stitch">
+                    <div class="stitch-x"></div><div class="stitch-x"></div><div class="stitch-x"></div>
+                    <div class="stitch-x"></div><div class="stitch-x"></div><div class="stitch-x"></div>
+                    <div class="stitch-x"></div><div class="stitch-x"></div>
+                </div>
+                <div class="page-flip flip-right" id="page-flip-right">
+                    <div class="page-flip-content">
+                        <h2 id="flip-r-title-front" class="page-title"></h2>
+                        <div class="page-art" id="flip-r-art-front"></div>
+                    </div>
+                    <div class="page-flip-content back-face">
+                        <h2 id="flip-l-title-back" class="page-title"></h2>
+                        <div class="page-art" id="flip-l-art-back"></div>
+                    </div>
+                </div>
+                <div class="page-flip flip-left" id="page-flip-left">
+                    <div class="page-flip-content">
+                        <h2 id="flip-l-title-front" class="page-title"></h2>
+                        <div class="page-art" id="flip-l-art-front"></div>
+                    </div>
+                    <div class="page-flip-content back-face">
+                        <h2 id="flip-r-title-back" class="page-title"></h2>
+                        <div class="page-art" id="flip-r-art-back"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="mp3-overlay" class="overlay" onclick="closeAll(event)">
+    <audio id="mp3-audio" preload="metadata"></audio>
+    <div class="close-hint" onclick="closeAll(event)">✕ BACK</div>
+    <div class="ipod-wrapper" onclick="closeAll(event)">
+        <div class="ipod-body" onclick="event.stopPropagation()">
+            <div class="ipod-screen">
+                <div class="ipod-screen-header" id="mp3-header">♪ NOW PLAYING</div>
+                <div class="ipod-screen-body" id="mp3-screen-body"></div>
+            </div>
+            <div class="ipod-wheel">
+                <button class="ipod-wheel-btn ipod-btn-menu" onclick="mp3Menu(event)">MENU</button>
+                <button class="ipod-wheel-btn ipod-btn-prev" onclick="mp3Prev(event)">⏮</button>
+                <button class="ipod-wheel-btn ipod-btn-next" onclick="mp3Next(event)">⏭</button>
+                <button class="ipod-wheel-btn ipod-btn-play" id="mp3-playicon" onclick="mp3PlayPause(event)">▶</button>
+                <div class="ipod-wheel-center" onclick="mp3PlayPause(event)">⏯</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="gb-overlay" class="overlay" onclick="closeAll(event)">
-    <div class="close-hint" onclick="closeAll(event)">✕ POWER OFF</div>
+    <div class="close-hint" onclick="closeAll(event)">✕ BACK</div>
     <div class="gb-wrapper" onclick="closeAll(event)">
         <div class="gb-unit" style="background:transparent;" onclick="event.stopPropagation()">
             <div class="gb-shell">
-                <div class="gb-screen-large" id="gb-screen"></div>
+                <div class="gb-screen-large" id="gb-screen">
+                    <div class="gb-pixel-grid" id="gb-pixels"></div>
+                    <div id="gb-content-layer" style="width:100%; height:100%;"></div>
+                </div>
                 <div class="gb-side-controls">
                     <div class="d-pad-wrapper">
                         <button class="pad-btn up" onclick="gbAction('up')">↑</button>
@@ -358,6 +989,43 @@
     </div>
 </div>
 
+<div id="diary-overlay" class="overlay" onclick="closeAll(event)">
+    <div class="close-hint" onclick="closeAll(event)">✕ BACK</div>
+    <div class="diary-book-wrapper" onclick="closeAll(event)">
+        <div class="diary-book" onclick="event.stopPropagation()">
+            <div class="diary-cover-left"></div>
+
+            <!-- LEFT PAGE -->
+            <div class="diary-page-left" id="diary-page-l">
+                <div class="diary-page-inner">
+                    <div class="diary-pg-date" id="diary-l-date"></div>
+                    <div class="diary-pg-title" id="diary-l-title"></div>
+                    <div class="diary-pg-body" id="diary-l-body"></div>
+                    <div class="diary-pg-num-left" id="diary-l-num"></div>
+                </div>
+            </div>
+
+            <div class="diary-spine"></div>
+
+            <!-- RIGHT PAGE -->
+            <div class="diary-page-right" id="diary-page-r">
+                <div class="diary-page-inner">
+                    <div class="diary-pg-date" id="diary-r-date"></div>
+                    <div class="diary-pg-title" id="diary-r-title"></div>
+                    <div class="diary-pg-body" id="diary-r-body"></div>
+                    <div class="diary-pg-num" id="diary-r-num"></div>
+                </div>
+            </div>
+
+            <div class="diary-cover-right"></div>
+
+            <!-- Turn buttons sit over the pages -->
+            <button class="diary-turn-btn diary-turn-left" id="diary-btn-prev" onclick="diaryTurn(-1)">‹</button>
+            <button class="diary-turn-btn diary-turn-right" id="diary-btn-next" onclick="diaryTurn(1)">›</button>
+        </div>
+    </div>
+</div>
+
 <script>
     const portfolio = {
         character: Array.from({length: 10}, (_, i) => ({ l: `Character L ${i+1}`, r: `Character R ${i+1}` })),
@@ -372,26 +1040,241 @@
         { name: "PROJECT_C", items: ["C1", "C2", "C3", "C4", "C5"] }
     ];
 
-    let activeSection = "character", currentPage = 0, gbIdx = 0, gbItem = 0, inGallery = false, highestZ = 10, cardInteracting = false;
+    let activeSection = "character"; let currentPage = 0;
+    let gbIdx = 0; let gbItem = 0; let inGallery = false;
+    let highestZ = 10; let cardInteracting = false;
+    let isTransitioning = false;
+
+    // --- MP3 PLAYER ---
+    // Drop matching .mp3 files into a "songs/" folder next to this HTML file
+    // (e.g. songs/billie-jean.mp3) for real playback. If a file is missing,
+    // the player falls back to a simulated progress bar using "seconds".
+    const songs = [
+        { title: "Billie Jean", artist: "Michael Jackson", duration: "4:54", seconds: 294, src: "songs/billie-jean.mp3" },
+        { title: "Beat It", artist: "Michael Jackson", duration: "4:18", seconds: 258, src: "songs/beat-it.mp3" },
+        { title: "Thriller", artist: "Michael Jackson", duration: "5:57", seconds: 357, src: "songs/thriller.mp3" },
+        { title: "Smooth Criminal", artist: "Michael Jackson", duration: "4:17", seconds: 257, src: "songs/smooth-criminal.mp3" },
+        { title: "Man in the Mirror", artist: "Michael Jackson", duration: "5:19", seconds: 319, src: "songs/man-in-the-mirror.mp3" }
+    ];
+    let mp3Idx = 0, mp3Playing = false, mp3Elapsed = 0, mp3Interval = null, mp3LastTick = 0, mp3View = 'now-playing';
+    const mp3Audio = document.getElementById('mp3-audio');
+    let mp3UsingRealAudio = false;
+
+    mp3Audio.addEventListener('ended', () => {
+        mp3Next();
+        if (mp3Playing) mp3PlayCurrent();
+    });
+    mp3Audio.addEventListener('timeupdate', () => {
+        if (mp3UsingRealAudio) {
+            mp3Elapsed = mp3Audio.currentTime;
+            if (mp3View === 'now-playing') updateMP3Progress();
+        }
+    });
+    mp3Audio.addEventListener('error', () => {
+        // file not found / unsupported — fall back to simulated playback
+        mp3UsingRealAudio = false;
+    });
+
+    function formatTime(sec) {
+        sec = Math.floor(sec);
+        const m = Math.floor(sec / 60), s = sec % 60;
+        return m + ":" + (s < 10 ? "0" : "") + s;
+    }
+
+    function mp3Tick() {
+        const now = Date.now();
+        mp3Elapsed += (now - mp3LastTick) / 1000;
+        mp3LastTick = now;
+        if (mp3Elapsed >= songs[mp3Idx].seconds) {
+            mp3Elapsed = 0;
+            mp3Idx = (mp3Idx + 1) % songs.length;
+            if (mp3Playing) mp3PlayCurrent();
+        }
+        if (mp3View === 'now-playing') updateMP3();
+        else { document.getElementById('mp3-desk-title').innerText = songs[mp3Idx].title; }
+    }
+
+    function updateMP3Progress() {
+        const s = songs[mp3Idx];
+        const fill = document.getElementById('mp3-progress-fill');
+        const elapsedEl = document.getElementById('mp3-elapsed');
+        if (fill) fill.style.width = (mp3Elapsed / s.seconds * 100) + '%';
+        if (elapsedEl) elapsedEl.innerText = formatTime(mp3Elapsed);
+    }
+
+    function mp3LoadCurrent() {
+        const s = songs[mp3Idx];
+        mp3Audio.pause();
+        mp3Audio.src = s.src;
+        mp3Audio.currentTime = 0;
+        mp3UsingRealAudio = true;
+    }
+
+    function mp3PlayCurrent() {
+        mp3LoadCurrent();
+        const playPromise = mp3Audio.play();
+        if (playPromise && playPromise.catch) {
+            playPromise.catch(() => {
+                // can't play real file — use simulated timer instead
+                mp3UsingRealAudio = false;
+            });
+        }
+    }
+
+    function updateMP3() {
+        const s = songs[mp3Idx];
+        const body = document.getElementById('mp3-screen-body');
+        document.getElementById('mp3-desk-title').innerText = s.title;
+        document.getElementById('mp3-desk-artist').innerText = s.artist;
+
+        if (mp3View === 'menu') {
+            document.getElementById('mp3-header').innerText = '♪ SELECT SONG';
+            body.innerHTML = `<div class="ipod-menu-list">` + songs.map((song, i) =>
+                `<div class="ipod-menu-item${i === mp3Idx ? ' active' : ''}" onclick="mp3Select(${i}, event)">${i === mp3Idx ? '▸ ' : '  '}${song.title}</div>`
+            ).join('') + `</div>`;
+        } else {
+            document.getElementById('mp3-header').innerText = '♪ NOW PLAYING';
+            body.innerHTML = `
+                <div class="mp3-title-scroll-wrap" id="mp3-title-wrap">
+                    <div class="mp3-title-inner" id="mp3-title">${s.title}</div>
+                </div>
+                <div id="mp3-artist">${s.artist}</div>
+                <div id="mp3-status" style="margin-top:8px; opacity:0.6; letter-spacing:2px;">${mp3Playing ? '▸ PLAYING' : '❙❙ PAUSED'}</div>
+                <div class="ipod-progress"><div class="ipod-progress-fill" id="mp3-progress-fill" style="width:${(mp3Elapsed / s.seconds * 100)}%"></div></div>
+                <div class="ipod-time-row">
+                    <span id="mp3-elapsed">${formatTime(mp3Elapsed)}</span>
+                    <span id="mp3-duration">${s.duration}</span>
+                </div>`;
+            // After render, check if title overflows and needs marquee
+            requestAnimationFrame(() => {
+                const wrap = document.getElementById('mp3-title-wrap');
+                const inner = document.getElementById('mp3-title');
+                if (!wrap || !inner) return;
+                const wrapW = wrap.offsetWidth;
+                const textW = inner.scrollWidth;
+                if (textW > wrapW) {
+                    // Duplicate text for seamless loop
+                    inner.textContent = s.title + '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0' + s.title;
+                    const fullW = inner.scrollWidth;
+                    const halfW = fullW / 2;
+                    const speed = 40; // px per second
+                    const dur = halfW / speed;
+                    inner.style.setProperty('--scroll-dist', `-${halfW}px`);
+                    inner.style.setProperty('--scroll-dur', `${dur}s`);
+                    inner.classList.add('scrolling');
+                } else {
+                    inner.classList.remove('scrolling');
+                }
+            });
+        }
+        document.getElementById('mp3-playicon').innerText = mp3Playing ? '❚❚' : '▶';
+    }
+
+    function mp3PlayPause(e) {
+        if (e) { e.stopPropagation(); pressButton(e.currentTarget); }
+        mp3Playing = !mp3Playing;
+        if (mp3Playing) {
+            mp3LastTick = Date.now();
+            clearInterval(mp3Interval);
+            mp3Interval = setInterval(mp3Tick, 250);
+            mp3PlayCurrent();
+        } else {
+            clearInterval(mp3Interval);
+            mp3Audio.pause();
+        }
+        updateMP3();
+    }
+
+    function mp3Next(e) {
+        if (e) { e.stopPropagation(); pressButton(e.currentTarget); }
+        clearInterval(mp3Interval);
+        mp3Audio.pause();
+        mp3Idx = (mp3Idx + 1) % songs.length;
+        mp3Elapsed = 0;
+        mp3LastTick = Date.now();
+        if (mp3Playing) {
+            mp3PlayCurrent();
+            mp3Interval = setInterval(mp3Tick, 250);
+        }
+        updateMP3();
+    }
+
+    function mp3Prev(e) {
+        if (e) { e.stopPropagation(); pressButton(e.currentTarget); }
+        clearInterval(mp3Interval);
+        mp3Audio.pause();
+        mp3Idx = (mp3Idx - 1 + songs.length) % songs.length;
+        mp3Elapsed = 0;
+        mp3LastTick = Date.now();
+        if (mp3Playing) {
+            mp3PlayCurrent();
+            mp3Interval = setInterval(mp3Tick, 250);
+        }
+        updateMP3();
+    }
+
+    function mp3Select(i, e) {
+        if (e) e.stopPropagation();
+        clearInterval(mp3Interval);
+        mp3Audio.pause();
+        mp3Idx = i;
+        mp3Elapsed = 0;
+        mp3LastTick = Date.now();
+        mp3View = 'now-playing';
+        if (mp3Playing) {
+            mp3PlayCurrent();
+            mp3Interval = setInterval(mp3Tick, 250);
+        }
+        updateMP3();
+    }
+
+    function mp3Menu(e) {
+        if (e) { e.stopPropagation(); pressButton(e.currentTarget); }
+        // MENU always returns to now-playing if already in menu; otherwise opens menu
+        mp3View = (mp3View === 'menu') ? 'now-playing' : 'menu';
+        updateMP3();
+    }
+
+    // brief visual "click" feedback for any wheel button
+    function pressButton(el) {
+        if (!el) return;
+        el.classList.add('pressed');
+        setTimeout(() => el.classList.remove('pressed'), 140);
+    }
+
+    // desk mp3 wheel — pressing it from the desk also plays/pauses
+    function mp3DeskWheel(e) {
+        if (e) e.stopPropagation();
+        const wheel = e.currentTarget;
+        wheel.classList.add('pressed');
+        setTimeout(() => wheel.classList.remove('pressed'), 140);
+        openUI('mp3-overlay');
+    }
+
 
     function openUI(id) {
-        const el = document.getElementById(id); el.style.display = 'block';
+        const el = document.getElementById(id);
+        el.style.display = 'block';
         setTimeout(() => el.classList.add('active'), 10);
         if(id === 'paper-overlay') initPaperStack();
         if(id === 'sk-overlay') renderBook();
-        if(id === 'gb-overlay') updateGB();
+        if(id === 'gb-overlay') { inGallery = false; updateGB(); }
         if(id === 'card-overlay') resetCardTransform();
+        if(id === 'clothesline-overlay') initClothesline();
+        if(id === 'mp3-overlay') { mp3View = 'now-playing'; updateMP3(); }
     }
 
     function closeAll(e) {
         if (e) e.stopPropagation();
-        if (cardInteracting) return;
+        if (cardInteracting || isTransitioning) return;
+        if (mp3Playing) { mp3Playing = false; clearInterval(mp3Interval); }
         document.querySelectorAll('.overlay').forEach(o => {
             o.classList.remove('active');
             setTimeout(() => o.style.display = 'none', 300);
         });
     }
 
+    let bookFlipping = false;
     function openSection(s) { activeSection = s; currentPage = 0; renderBook(); }
     function renderBook() {
         const sec = portfolio[activeSection], pg = sec[currentPage];
@@ -400,39 +1283,73 @@
         document.getElementById("page-l-art").innerText = `ASSET_${activeSection.toUpperCase()}_L`;
         document.getElementById("page-r-art").innerText = `ASSET_${activeSection.toUpperCase()}_R`;
     }
-    function nextPage() { const s = portfolio[activeSection]; currentPage = (currentPage+1)%s.length; renderBook(); }
-    function prevPage() { const s = portfolio[activeSection]; currentPage = (currentPage-1+s.length)%s.length; renderBook(); }
+    function nextPage() {
+        if (bookFlipping) return;
+        const s = portfolio[activeSection];
+        currentPage = (currentPage + 1) % s.length;
+        renderBook();
+    }
+    function prevPage() {
+        if (bookFlipping) return;
+        const s = portfolio[activeSection];
+        currentPage = (currentPage - 1 + s.length) % s.length;
+        renderBook();
+    }
 
     function updateGB() {
-        const s = document.getElementById('gb-screen');
+        const content = document.getElementById('gb-content-layer');
         if (!inGallery) {
-            s.innerHTML = `<div style="border-bottom:2px solid #2d3322; padding-bottom:5px;">OS v1.2</div>` + 
-            projects.map((p, i) => `<div style="padding:5px; ${i === gbIdx ? 'background:#2d3322; color:#8bac0f' : ''}">${i === gbIdx ? '> ' : '  '}${p.name}</div>`).join('');
+            content.innerHTML = `<div style="border-bottom:2px solid #2d3322; padding-bottom:5px;">OS v1.2</div>` + 
+            projects.map((p, i) => `<div style="padding:5px; font-size:1.5rem; ${i === gbIdx ? 'background:#2d3322; color:#8bac0f' : ''}">${i === gbIdx ? '> ' : '  '}${p.name}</div>`).join('');
         } else {
             const p = projects[gbIdx];
-            s.innerHTML = `<div style="border-bottom:2px solid #2d3322">${p.name}</div><div style="margin-top:40px; text-align:center;"><div>${p.items[gbItem]}</div><div style="opacity:0.6; margin-top:10px;">[ ${gbItem+1} / 5 ]</div></div>`;
+            content.innerHTML = `<div style="border-bottom:2px solid #2d3322; font-size:1.8rem;">${p.name}</div><div style="margin-top:40px; text-align:center;"><div>${p.items[gbItem]}</div><div style="opacity:0.6; margin-top:10px;">[ ${gbItem+1} / 5 ]</div></div>`;
         }
     }
+
     function gbAction(btn) {
+        if (isTransitioning) return;
         if(!inGallery) {
-            if(btn === 'up') gbIdx = (gbIdx-1+3)%3; if(btn === 'down') gbIdx = (gbIdx+1)%3;
-            if(btn === 'select') { inGallery = true; gbItem = 0; }
+            if(btn === 'up') gbIdx = (gbIdx-1+3)%3; 
+            if(btn === 'down') gbIdx = (gbIdx+1)%3;
+            if(btn === 'select') triggerPixelTransition(() => { inGallery = true; gbItem = 0; });
         } else {
-            if(btn === 'back') inGallery = false;
+            if(btn === 'back') triggerPixelTransition(() => { inGallery = false; });
             if(btn === 'left' || btn === 'up') gbItem = (gbItem-1+5)%5; 
             if(btn === 'right' || btn === 'down') gbItem = (gbItem+1)%5;
         }
-        updateGB();
+        if (btn !== 'select' && btn !== 'back') updateGB();
+    }
+
+    function triggerPixelTransition(callback) {
+        isTransitioning = true;
+        const grid = document.getElementById('gb-pixels');
+        grid.innerHTML = "";
+        grid.style.display = "grid";
+        for (let r = 0; r < 10; r++) {
+            for (let c = 0; c < 15; c++) {
+                const sq = document.createElement('div');
+                sq.className = "pixel-square";
+                sq.style.animationDelay = ((c * 0.03) + (Math.random() * 0.05)) + "s";
+                grid.appendChild(sq);
+                void sq.offsetWidth; 
+                sq.classList.add('active');
+            }
+        }
+        setTimeout(() => { callback(); updateGB(); }, 450);
+        setTimeout(() => { grid.style.display = "none"; isTransitioning = false; }, 1300);
     }
 
     function initPaperStack() {
         const container = document.getElementById('paper-stack-container');
         container.innerHTML = ""; 
         for (let i = 0; i < 5; i++) {
-            const p = document.createElement('div'); p.className = 'stack-paper';
+            const p = document.createElement('div');
+            p.className = 'stack-paper';
             p.style.left = "50%"; p.style.top = "50%";
-            p.style.transform = "translate(-50%, -50%) scale(0.1)"; p.style.zIndex = i;
-            p.innerHTML = `<div class="label-marker" style="margin-bottom:20px;">SEQ_0${i+1}</div><div style="flex:1; background:#f5f5f5; border:1px solid #ccc; display:flex; align-items:center; justify-content:center; color:#aaa;">SCENE_CONTENT_0${i+1}</div>`;
+            p.style.transform = "translate(-50%, -50%) scale(0.1)";
+            p.style.zIndex = i;
+            p.innerHTML = `<div class="label-marker" style="margin-bottom:20px;">SEQ_0${i+1}</div><div style="flex:1; background:#f5f5f5; border:1px dashed #ccc; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:0.9rem;">PANEL_SCENE_VISUAL</div>`;
             p.onmousedown = (e) => {
                 e.stopPropagation(); highestZ++; p.style.zIndex = highestZ;
                 p.classList.add('is-dragging');
@@ -444,14 +1361,126 @@
             p.onclick = (e) => e.stopPropagation();
             container.appendChild(p);
             setTimeout(() => {
-                const safeX = 10 + Math.random() * 50; const safeY = 5 + Math.random() * 25;
+                const safeX = 10 + Math.random() * 50; const safeY = 10 + Math.random() * 25;
                 const randomRot = (Math.random() * 24) - 12;
                 p.style.left = safeX + "%"; p.style.top = safeY + "%"; p.style.transform = `rotate(${randomRot}deg) scale(1)`;
             }, 50 + (i * 60));
         }
     }
 
+    const jamPhotos = [
+        { label: "team DIMASH", caption: "JAM_01 \u2014 team photo" },
+        { label: "carpet sketches", caption: "JAM_02 \u2014 motif sketches" },
+        { label: "pixel UI pass", caption: "JAM_03 \u2014 UI work" },
+        { label: "midnight coffee", caption: "JAM_04 \u2014 all-nighter" },
+        { label: "build #1 fail", caption: "JAM_05 \u2014 oops" },
+        { label: "playtest crowd", caption: "JAM_06 \u2014 playtest" },
+        { label: "final submission", caption: "JAM_07 \u2014 shipped!" },
+        { label: "the team, tired", caption: "JAM_08 \u2014 wrap up" }
+    ];
+
+    const clothespinSVG = `<svg class="clothespin" viewBox="0 0 22 42" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="18" height="38" rx="4" fill="#c8895a"/>
+        <rect x="2" y="2" width="7" height="38" rx="4" fill="#b8794a"/>
+        <circle cx="11" cy="14" r="3" fill="#8a5c33"/>
+    </svg>`;
+
+    let clothesCurrentLeft = 0;
+    function initClothesline() {
+        const track = document.getElementById('clothesline-track');
+        track.innerHTML = "";
+        jamPhotos.forEach((p, i) => {
+            const el = document.createElement('div');
+            el.className = 'hung-photo';
+            el.style.animationDelay = (i * -0.7) + "s";
+            el.innerHTML = `${clothespinSVG}<div class="pl-photo">${p.label}</div><div class="pl-label">${p.caption}</div>`;
+            el.addEventListener('click', (e) => {
+                if (trackDragMoved) return; // ignore click that ended a drag
+                e.stopPropagation();
+                openPolaroid(i);
+            });
+            track.appendChild(el);
+        });
+        track.style.left = clothesCurrentLeft + "px";
+    }
+
+    // --- DRAG TO SLIDE CLOTHESLINE ---
+    let trackDragMoved = false;
+    (function() {
+        const track = document.getElementById('clothesline-track');
+        let isDown = false, startX = 0, startLeft = 0;
+
+        track.addEventListener('mousedown', (e) => {
+            isDown = true;
+            trackDragMoved = false;
+            track.classList.add('is-dragging');
+            startX = e.clientX;
+            startLeft = clothesCurrentLeft;
+            e.preventDefault();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            const dx = e.clientX - startX;
+            if (Math.abs(dx) > 5) trackDragMoved = true;
+            let newLeft = startLeft + dx;
+
+            // clamp: scrollWidth already includes 8vw padding on both sides, so aligning track right edge = viewport right edge gives equal spacing
+            const trackWidth = track.scrollWidth;
+            const viewWidth = track.parentElement.offsetWidth;
+            const minLeft = viewWidth - trackWidth;
+            const maxLeft = 0;
+            newLeft = Math.min(Math.max(newLeft, minLeft), maxLeft);
+
+            clothesCurrentLeft = newLeft;
+            track.style.left = newLeft + "px";
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDown) return;
+            isDown = false;
+            track.classList.remove('is-dragging');
+        });
+    })();
+
+
     const card3d = document.getElementById("card3d");
+
+    function openPolaroid(idx) {
+        const p = jamPhotos[idx];
+        document.getElementById('polaroid-photo-large').innerText = p.label;
+        document.getElementById('polaroid-label-large').innerText = p.caption;
+        const el = document.getElementById('polaroid-overlay');
+        el.style.display = 'block';
+        setTimeout(() => el.classList.add('active'), 10);
+        resetPolaroidTransform();
+    }
+
+    function closePolaroidZoom(e) {
+        if (e) e.stopPropagation();
+        if (cardInteracting) return;
+        const el = document.getElementById('polaroid-overlay');
+        el.classList.remove('active');
+        setTimeout(() => el.style.display = 'none', 300);
+    }
+
+    const polaroid3d = document.getElementById("polaroid3d");
+    let plRotX = 0, plRotY = 0, plScale = 1, plDragging = false, plLastX = 0, plLastY = 0;
+    function resetPolaroidTransform() { plRotX = 0; plRotY = 0; plScale = 1; updatePolaroidTransform(); }
+    function updatePolaroidTransform() { polaroid3d.style.transform = `scale(${plScale}) rotateX(${plRotX}deg) rotateY(${plRotY}deg)`; }
+    polaroid3d.addEventListener("mousedown", (e) => { plDragging = true; cardInteracting = true; plLastX = e.clientX; plLastY = e.clientY; });
+    window.addEventListener("mousemove", (e) => {
+        if (!plDragging || !document.getElementById('polaroid-overlay').classList.contains('active')) return;
+        let dx = e.clientX - plLastX, dy = e.clientY - plLastY;
+        plRotY += dx * 0.5; plRotX -= dy * 0.5; updatePolaroidTransform();
+        plLastX = e.clientX; plLastY = e.clientY;
+    });
+    window.addEventListener("mouseup", () => { plDragging = false; setTimeout(() => cardInteracting = false, 150); });
+    window.addEventListener("wheel", (e) => {
+        if (!document.getElementById('polaroid-overlay').classList.contains('active')) return;
+        plScale += e.deltaY * -0.001; plScale = Math.min(Math.max(0.5, plScale), 2.5); updatePolaroidTransform();
+    });
+
     let rotX = 0, rotY = 0, scale = 1, isDragging = false, lastX = 0, lastY = 0;
     function resetCardTransform() { rotX = 0; rotY = 0; scale = 1; updateCardTransform(); }
     function updateCardTransform() { card3d.style.transform = `scale(${scale}) rotateX(${rotX}deg) rotateY(${rotY}deg)`; }
@@ -468,13 +1497,158 @@
         scale += e.deltaY * -0.001; scale = Math.min(Math.max(0.5, scale), 2.5); updateCardTransform();
     });
 
+    // ---- DIARY DATA — each entry has two sides (left + right page) ----
+    const diaryEntries = [
+        {
+            date: "june 3, 2025",
+            title: "on starting things",
+            left: `There's something I've been thinking about lately — the way a blank page feels like both an invitation and a threat. I opened my sketchbook today and just... stared at it for twenty minutes before drawing a single line.\n\nBut once the line was there, everything else came easier. A shape, a shadow, a whole little world bleeding out from that first uncertain mark.`,
+            right: `I think that's the thing about art nobody tells you: the hardest part is always the first ten seconds.\n\nI keep a cup of cold coffee on my desk when I work. Not because I like cold coffee — I really don't — but because letting it go cold means I forgot to drink it because I was drawing, and that feels like a small victory.\n\nNote to self: stop overthinking the beginning.`
+        },
+        {
+            date: "june 9, 2025",
+            title: "colour theory at 2am",
+            left: `I stayed up way too late last night trying to figure out why the palette I chose for a piece felt wrong. Everything looked muddy and sad in a bad way — not in the intended way.\n\nTurns out I was mixing warm and cool tones in a way that was cancelling each other out. No tension, no harmony, just beige conflict.`,
+            right: `Fixed it by pulling the shadows cooler and the highlights warmer. Suddenly the whole thing breathed.\n\nColour is genuinely one of the most humbling parts of this. I know the theory. I know temperature and saturation. And then I still make mud.\n\nBut I love the mud. There's always something new to mess up.\n\nSaved the palette as "2am fix" in my swatches.`
+        },
+        {
+            date: "june 14, 2025",
+            title: "game jam thoughts",
+            left: `48 hours is both too long and completely not enough. Four people, three laptops, two monitors, one broken keyboard, approximately zero sleep.\n\nI did all the art. Every sprite, every background tile, every UI element. There's a freedom in a jam that doesn't exist anywhere else — when time is the constraint, perfectionism just... leaves.`,
+            right: `The game is rough. Beautifully rough. I love the way the character wobbles when it jumps. I didn't plan the wobble — I just ran out of frames to fix it.\n\nWe came second. The first-place team had more polish but I don't envy them their all-nighter.\n\nI want to keep making rough things. There's something honest in them.`
+        },
+        {
+            date: "june 22, 2025",
+            title: "the reference folder problem",
+            left: `I have a problem. My references folder has 4,000 items in it. It is organised into subfolders. The subfolders have subfolders. I cannot find anything but I refuse to delete anything.\n\nI found an image today that I saved in 2019. A painted hallway in Portugal. The light is incredible.`,
+            right: `I don't know why 2019-me thought I would need this but 2025-me is grateful.\n\nI think that's maybe what art is for me — collecting light. From everywhere. Even hallways I've never been in.\n\nStarted a new folder: "light that does something."\n\nIt already has 47 things in it.`
+        },
+        {
+            date: "july 1, 2025",
+            title: "on showing work",
+            left: `I posted something today. Just a character sketch, nothing finished. Twenty minutes after posting I wanted to delete it.\n\nI didn't delete it.\n\nA few people said nice things. One person said something critical in a way that was actually useful, which is rare. I said thank you and meant it.`,
+            right: `Showing work is its own skill, separate from making it. You have to sort of... put your ego in a drawer for a bit. Not forever. Just while other people look.\n\nI think I'm getting better at that. The drawer used to stick. It still sticks sometimes. But at least I know where the drawer is now.\n\nMore posts. Less deleting.`
+        }
+    ];
+    let diaryCurrentPage = 0;
+
+    function renderDiary() {
+        const e = diaryEntries[diaryCurrentPage];
+        const total = diaryEntries.length;
+        // left page
+        document.getElementById('diary-l-date').innerText = e.date;
+        document.getElementById('diary-l-title').innerText = e.title;
+        document.getElementById('diary-l-body').innerHTML = e.left.split('\n\n').map(p => `<p>${p}</p>`).join('');
+        document.getElementById('diary-l-num').innerText = `pg. ${diaryCurrentPage * 2 + 1}`;
+        // right page
+        document.getElementById('diary-r-date').innerText = '';
+        document.getElementById('diary-r-title').innerText = '';
+        document.getElementById('diary-r-body').innerHTML = e.right.split('\n\n').map(p => `<p>${p}</p>`).join('');
+        document.getElementById('diary-r-num').innerText = `${diaryCurrentPage * 2 + 2}  ·  ${total * 2} pages`;
+        // buttons
+        document.getElementById('diary-btn-prev').disabled = diaryCurrentPage === 0;
+        document.getElementById('diary-btn-next').disabled = diaryCurrentPage === total - 1;
+    }
+
+    function diaryTurn(dir) {
+        const total = diaryEntries.length;
+        if (dir === 1 && diaryCurrentPage >= total - 1) return;
+        if (dir === -1 && diaryCurrentPage <= 0) return;
+        diaryCurrentPage += dir;
+        renderDiary();
+    }
+
+
+
+    // ---- KEY DRAG TO UNLOCK ----
+    let diaryUnlocked = false;
+    const keyEl = document.getElementById('key-item');
+    const diaryEl = document.getElementById('diary-trigger');
+    let keyDragging = false, keyOffX, keyOffY;
+
+    keyEl.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        if (diaryUnlocked) return;
+        keyDragging = true;
+        keyEl.classList.add('dragging');
+        const rect = keyEl.getBoundingClientRect();
+        keyOffX = e.clientX - rect.left;
+        keyOffY = e.clientY - rect.top;
+        keyEl.style.position = 'fixed';
+        keyEl.style.left = (e.clientX - keyOffX) + 'px';
+        keyEl.style.top = (e.clientY - keyOffY) + 'px';
+        keyEl.style.zIndex = '200';
+        keyEl.style.right = 'auto'; keyEl.style.bottom = 'auto';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!keyDragging) return;
+        keyEl.style.left = (e.clientX - keyOffX) + 'px';
+        keyEl.style.top = (e.clientY - keyOffY) + 'px';
+        // Only glow — do NOT unlock on proximity
+        const diaryRect = diaryEl.getBoundingClientRect();
+        const cx = diaryRect.left + diaryRect.width / 2;
+        const cy = diaryRect.top + diaryRect.height / 2;
+        const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+        diaryEl.classList.toggle('key-hover', dist < 90);
+    });
+
+    window.addEventListener('mouseup', (e) => {
+        if (!keyDragging) return;
+        keyDragging = false;
+        keyEl.classList.remove('dragging');
+        diaryEl.classList.remove('key-hover');
+
+        const diaryRect = diaryEl.getBoundingClientRect();
+        const cx = diaryRect.left + diaryRect.width / 2;
+        const cy = diaryRect.top + diaryRect.height / 2;
+        const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+
+        if (dist < 90 && !diaryUnlocked) {
+            // Dropped ON the diary — unlock permanently
+            diaryUnlocked = true;
+            diaryEl.classList.add('unlocked');
+            keyEl.classList.add('used');
+            // Park the key visually next to the diary, fixed in place
+            const diaryDomRect = diaryEl.getBoundingClientRect();
+            keyEl.style.position = 'fixed';
+            keyEl.style.left = (diaryDomRect.right - 30) + 'px';
+            keyEl.style.top = (diaryDomRect.bottom - 20) + 'px';
+            keyEl.style.zIndex = '15';
+            keyEl.style.transform = 'rotate(10deg) scale(0.85)';
+            keyEl.style.transition = 'transform 0.4s ease, left 0.4s ease, top 0.4s ease';
+            setTimeout(() => {
+                diaryCurrentPage = 0;
+                renderDiary();
+                openUI('diary-overlay');
+            }, 450);
+        } else {
+            // Dropped elsewhere — leave key where it was dropped, no unlock
+            keyEl.style.position = 'fixed';
+            keyEl.style.zIndex = '20';
+        }
+    });
+
+    diaryEl.addEventListener('click', () => {
+        if (!diaryUnlocked) return;
+        // Key stays where it was parked — never reset
+        renderDiary();
+        openUI('diary-overlay');
+    });
+
     document.addEventListener('keydown', (e) => {
         if (document.getElementById('gb-overlay').classList.contains('active')) {
             if (e.key === "ArrowUp") gbAction('up'); if (e.key === "ArrowDown") gbAction('down');
             if (e.key === "ArrowLeft") gbAction('left'); if (e.key === "ArrowRight") gbAction('right');
             if (e.key === "a" || e.key === "Enter") gbAction('select'); if (e.key === "b" || e.key === "Backspace") gbAction('back');
         }
-        if (e.key === "Escape") closeAll();
+        if (e.key === "Escape") {
+            if (document.getElementById('polaroid-overlay').classList.contains('active')) {
+                closePolaroidZoom();
+            } else {
+                closeAll();
+            }
+        }
     });
 </script>
 </body>
