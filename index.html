@@ -224,8 +224,8 @@
         /* --- 4. BUSINESS CARD --- */
         #card-trigger {
             bottom: 10%; left: 18%;
-            width: 240px; height: 140px;
-            background: #fff; border-radius: 4px; padding: 25px;
+            width: 200px; height: 118px;
+            background: #fff; border-radius: 4px; padding: 20px;
             box-shadow: 2px 5px 15px rgba(0,0,0,0.15);
             transform: rotate(-8deg);
             display: flex; flex-direction: column; justify-content: center;
@@ -236,7 +236,157 @@
             box-shadow: 0 45px 80px rgba(0,0,0,0.3);
         }
 
-        /* --- OVERLAY ENGINE --- */
+
+        /* --- 5. LETTER --- */
+        #letter-trigger {
+            bottom: 2%; left: 32%;
+            width: 220px; height: 148px;
+            transform: rotate(5deg);
+            z-index: 10;
+        }
+        #letter-trigger:hover {
+            transform: rotate(5deg) translateY(-14px) scale(1.06);
+            z-index: 100;
+        }
+        .letter-envelope {
+            width: 100%; height: 100%;
+            background: #f0ead8;
+            border-radius: 4px;
+            box-shadow: 2px 5px 14px rgba(0,0,0,0.22);
+            position: relative;
+            overflow: visible;
+            transition: box-shadow 0.4s ease;
+        }
+        #letter-trigger:hover .letter-envelope {
+            box-shadow: 0 30px 55px rgba(0,0,0,0.28);
+        }
+        /* envelope body background */
+        .letter-env-body {
+            position: absolute; inset: 0;
+            background: #f0ead8;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        /* bottom-left and bottom-right triangular folds */
+        .letter-env-body::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(135deg, #ddd5bc 49.5%, transparent 49.5%),
+                linear-gradient(225deg, #ddd5bc 49.5%, transparent 49.5%);
+            background-size: 50% 100%;
+            background-position: left bottom, right bottom;
+            background-repeat: no-repeat;
+        }
+        /* horizontal center seam line */
+        .letter-env-body::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 1px;
+            background: #c8bfa4;
+        }
+        /* top flap — separate div so it sits above the body */
+        .letter-env-flap {
+            position: absolute; top: -1px; left: 0; right: 0;
+            height: 68px; z-index: 2;
+            background: #e8e0ca;
+            clip-path: polygon(0 0, 100% 0, 50% 88%);
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+        /* flap center crease */
+        .letter-env-flap::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 1px; height: 68px;
+            background: linear-gradient(to bottom, #c8bfa4, transparent);
+        }
+        .letter-stamp {
+            position: absolute; top: 10px; right: 10px; z-index: 4;
+            width: 30px; height: 36px;
+            background: #b03020;
+            border: 2.5px solid #fff;
+            outline: 1px dashed #fff;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+        }
+        /* postmark circle */
+        .letter-postmark {
+            position: absolute; top: 8px; right: 48px; z-index: 4;
+            width: 34px; height: 34px;
+            border: 1.5px solid #bbb; border-radius: 50%;
+            opacity: 0.45;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'VT323', monospace; font-size: 7px; color: #888;
+            text-align: center; line-height: 1.2;
+        }
+        .letter-to {
+            position: absolute; bottom: 22px; left: 18px; z-index: 3;
+            font-family: 'Permanent Marker'; font-size: 0.6rem; color: #6a5a3a;
+            line-height: 1.6;
+        }
+        .letter-label {
+            position: absolute; bottom: -22px; left: 0; right: 0; text-align: center;
+            font-family: 'Permanent Marker'; font-size: 0.65rem; color: rgba(255,255,255,0.5);
+        }
+
+        /* --- LETTER OVERLAY --- */
+        .letter-overlay-inner {
+            width: 720px; max-width: 95vw;
+            max-height: 90vh; overflow-y: auto;
+            background: #faf6ee;
+            border-radius: 4px;
+            padding: 56px 64px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+            font-family: 'Permanent Marker', cursive;
+            position: relative;
+            background-image: repeating-linear-gradient(
+                to bottom, transparent, transparent 37px,
+                #e0d8c8 37px, #e0d8c8 38px
+            );
+            background-position: 0 52px;
+        }
+        .letter-overlay-inner h2 {
+            font-family: 'Permanent Marker'; font-size: 1.5rem;
+            color: #3a3020; margin-bottom: 32px; letter-spacing: 1px;
+            border-bottom: 2px solid #c8b99a; padding-bottom: 12px;
+        }
+        .letter-field-label {
+            font-family: 'VT323', monospace; font-size: 0.82rem;
+            color: #9a8a6a; letter-spacing: 2px; margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        .letter-field {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 2px solid #c8b99a; outline: none;
+            font-family: 'Permanent Marker'; font-size: 1.05rem; color: #3a3020;
+            padding: 6px 0; margin-bottom: 28px; resize: none;
+            line-height: 1.6; box-sizing: border-box;
+        }
+        .letter-field::placeholder { color: #c8b99a; font-size: 0.95rem; }
+        .letter-field:focus { border-bottom-color: #8a6a3a; }
+        textarea.letter-field { height: 150px; border: 2px solid #c8b99a; border-radius: 3px; padding: 10px; }
+        textarea.letter-field:focus { border-color: #8a6a3a; }
+        .letter-send-btn {
+            margin-top: 10px; width: 100%; padding: 16px;
+            background: #3a3020; color: #faf6ee;
+            border: none; border-radius: 3px;
+            font-family: 'Permanent Marker'; font-size: 1.15rem;
+            letter-spacing: 2px; cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+        .letter-send-btn:hover { background: #5c4a28; transform: translateY(-2px); }
+        .letter-send-btn:active { transform: translateY(0); }
+        .letter-send-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+        .letter-sent-msg {
+            text-align: center; padding: 60px 0;
+            font-family: 'Permanent Marker'; color: #3a3020;
+        }
+        .letter-sent-msg .sent-icon { font-size: 3.5rem; margin-bottom: 20px; }
+        .letter-sent-msg p { font-size: 1.3rem; line-height: 1.8; opacity: 0.8; }
         .overlay {
             position: fixed; inset: 0;
             background: rgba(0,0,0,0.3); backdrop-filter: blur(8px);
@@ -363,8 +513,8 @@
 
         /* --- POLAROID PILE (DESK) --- */
         #polaroid-pile {
-            top:6%; left:5%;
-            width: 560px; height: 175px;
+            top:10%; left:5%;
+            width: 190px; height: 175px;
             z-index: 10;
         }
         .polaroid-item {
@@ -393,16 +543,17 @@
         }
         /* group lift: all polaroids rise slightly together when the pile is hovered (upward only, away from storyboard) */
         #polaroid-pile:hover .polaroid-item { transform: translateY(-8px); }
-        #polaroid-pile:hover #pl-item-1 { transform: translate(-12px, -14px) rotate(-14deg) scale(1.08); }
-        #polaroid-pile:hover #pl-item-2 { transform: translate(-6px, -18px) rotate(2deg) scale(1.08); }
-        #polaroid-pile:hover #pl-item-3 { transform: translate(0px, -12px) rotate(20deg) scale(1.08); }
-        #polaroid-pile:hover #pl-item-4 { transform: translate(6px, -18px) rotate(-8deg) scale(1.08); }
-        #polaroid-pile:hover #pl-item-5 { transform: translate(12px, -14px) rotate(12deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-1 { transform: translate(-28px, -12px) rotate(-18deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-2 { transform: translate(-14px, -20px) rotate(-5deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-3 { transform: translate(0px, -18px) rotate(4deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-4 { transform: translate(14px, -20px) rotate(13deg) scale(1.08); }
+        #polaroid-pile:hover #pl-item-5 { transform: translate(28px, -12px) rotate(22deg) scale(1.08); }
         /* individual hover lifts that single photo a bit further, on top of the group */
-        #pl-item-1:hover { transform: translate(-16px, -20px) rotate(-14deg) scale(1.12) !important; }
-        #pl-item-2:hover { transform: translate(-8px, -24px) rotate(2deg) scale(1.12) !important; }
-        #pl-item-3:hover { transform: translate(0px, -18px) rotate(20deg) scale(1.12) !important; }
-        #pl-item-4:hover { transform: translate(8px, -24px) rotate(-8deg) scale(1.12) !important; }
+        #pl-item-1:hover { transform: translate(-26px, -18px) rotate(-18deg) scale(1.12) !important; }
+        #pl-item-2:hover { transform: translate(-12px, -26px) rotate(-5deg) scale(1.12) !important; }
+        #pl-item-3:hover { transform: translate(0px, -22px) rotate(4deg) scale(1.12) !important; }
+        #pl-item-4:hover { transform: translate(12px, -26px) rotate(13deg) scale(1.12) !important; }
+        #pl-item-5:hover { transform: translate(26px, -18px) rotate(22deg) scale(1.12) !important; }
         #pl-item-5:hover { transform: translate(16px, -20px) rotate(12deg) scale(1.12) !important; }
 
         /* --- CLOTHESLINE OVERLAY --- */
@@ -780,23 +931,23 @@
     </div>
 
     <div id="polaroid-pile" class="desk-item" onclick="openUI('clothesline-overlay')">
-        <div id="pl-item-1" class="polaroid-item" style="top:5%; left:0%; transform: rotate(-9deg);">
+        <div id="pl-item-1" class="polaroid-item" style="top:12%; left:0%; transform: rotate(-15deg); z-index:1;">
             <div class="pl-photo">JAM_01</div>
             <div class="pl-label">day one</div>
         </div>
-        <div id="pl-item-2" class="polaroid-item" style="top:0%; left:23%; transform: rotate(5deg);">
+        <div id="pl-item-2" class="polaroid-item" style="top:3%; left:14%; transform: rotate(-4deg); z-index:2;">
             <div class="pl-photo">JAM_02</div>
             <div class="pl-label">all-nighter</div>
         </div>
-        <div id="pl-item-3" class="polaroid-item" style="top:8%; left:46%; transform: rotate(-3deg);">
+        <div id="pl-item-3" class="polaroid-item" style="top:7%; left:26%; transform: rotate(6deg); z-index:3;">
             <div class="pl-photo">JAM_03</div>
             <div class="pl-label">ship it!</div>
         </div>
-        <div id="pl-item-4" class="polaroid-item" style="top:2%; left:69%; transform: rotate(7deg);">
+        <div id="pl-item-4" class="polaroid-item" style="top:1%; left:38%; transform: rotate(14deg); z-index:4;">
             <div class="pl-photo">JAM_04</div>
             <div class="pl-label">coffee run</div>
         </div>
-        <div id="pl-item-5" class="polaroid-item" style="top:9%; left:92%; transform: rotate(-6deg);">
+        <div id="pl-item-5" class="polaroid-item" style="top:10%; left:50%; transform: rotate(21deg); z-index:5;">
             <div class="pl-photo">JAM_05</div>
             <div class="pl-label">wrap up</div>
         </div>
@@ -805,6 +956,18 @@
     <div id="card-trigger" class="desk-item" onclick="openUI('card-overlay')">
         <div class="label-marker" style="line-height: 1;">YOUR NAME</div>
         <div style="font-size: 14px; color: #999; margin-top:10px; letter-spacing:1px; font-weight: bold;">LEAD ARTIST & DEV</div>
+    </div>
+
+    <!-- LETTER -->
+    <div id="letter-trigger" class="desk-item" onclick="openUI('letter-overlay')">
+        <div class="letter-envelope">
+            <div class="letter-env-body"></div>
+            <div class="letter-env-flap"></div>
+            <div class="letter-stamp">✉</div>
+            <div class="letter-postmark">PORT<br>FOLIO<br>2025</div>
+            <div class="letter-to">To:<br>You ♥</div>
+        </div>
+        <div class="letter-label">write to me</div>
     </div>
 
     <!-- DIARY -->
@@ -985,6 +1148,22 @@
                     <p style="font-size:1.5rem; margin-top: 10px;">🔗 artstation.com/you</p>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div id="letter-overlay" class="overlay" onclick="closeAll(event)">
+    <div class="close-hint" onclick="closeAll(event)">✕ BACK</div>
+    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;" onclick="closeAll(event)">
+        <div class="letter-overlay-inner" onclick="event.stopPropagation()" id="letter-inner">
+            <h2>✉ &nbsp;drop me a letter</h2>
+            <div class="letter-field-label">your name</div>
+            <input class="letter-field" id="letter-name" type="text" placeholder="who's writing?">
+            <div class="letter-field-label">your email</div>
+            <input class="letter-field" id="letter-email" type="email" placeholder="so i can write back">
+            <div class="letter-field-label">message</div>
+            <textarea class="letter-field" id="letter-msg" placeholder="say anything..."></textarea>
+            <button class="letter-send-btn" onclick="sendLetter()">SEND LETTER ✉</button>
         </div>
     </div>
 </div>
@@ -1262,6 +1441,17 @@
         if(id === 'card-overlay') resetCardTransform();
         if(id === 'clothesline-overlay') initClothesline();
         if(id === 'mp3-overlay') { mp3View = 'now-playing'; updateMP3(); }
+        if(id === 'letter-overlay') {
+            document.getElementById('letter-inner').innerHTML = `
+                <h2>✉ &nbsp;drop me a letter</h2>
+                <div class="letter-field-label">your name</div>
+                <input class="letter-field" id="letter-name" type="text" placeholder="who's writing?">
+                <div class="letter-field-label">your email</div>
+                <input class="letter-field" id="letter-email" type="email" placeholder="so i can write back">
+                <div class="letter-field-label">message</div>
+                <textarea class="letter-field" id="letter-msg" placeholder="say anything..."></textarea>
+                <button class="letter-send-btn" onclick="sendLetter()">SEND LETTER ✉</button>`;
+        }
     }
 
     function closeAll(e) {
@@ -1559,6 +1749,48 @@
     }
 
 
+
+    function sendLetter() {
+        const name    = document.getElementById('letter-name').value.trim();
+        const email   = document.getElementById('letter-email').value.trim();
+        const message = document.getElementById('letter-msg').value.trim();
+        if (!name || !message) {
+            alert('Please fill in your name and message!');
+            return;
+        }
+        const btn = document.querySelector('.letter-send-btn');
+        btn.textContent = 'SENDING…';
+        btn.disabled = true;
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+                access_key: '5f3c7a2e-5b1d-4e8a-9c6f-2d1e3b4a7f8c',
+                name:    name,
+                email:   email || 'no-reply@portfolio.com',
+                message: message,
+                subject: 'Portfolio Letter from ' + name
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('letter-inner').innerHTML = `<div class="letter-sent-msg">
+                    <div class="sent-icon">✉</div>
+                    <p>your letter is on its way!<br>talk soon ✦</p>
+                </div>`;
+            } else {
+                throw new Error(data.message);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            btn.textContent = 'SEND LETTER ✉';
+            btn.disabled = false;
+            alert('Something went wrong — please try again!');
+        });
+    }
 
     // ---- KEY DRAG TO UNLOCK ----
     let diaryUnlocked = false;
