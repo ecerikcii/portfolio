@@ -239,98 +239,105 @@
 
         /* --- 5. LETTER --- */
         #letter-trigger {
-            bottom: 2%; left: 32%;
-            width: 220px; height: 148px;
-            transform: rotate(5deg);
+            top: 14%; left: 62%;
+            width: 280px; height: 190px;
+            transform: rotate(6deg);
             z-index: 10;
         }
         #letter-trigger:hover {
-            transform: rotate(5deg) translateY(-14px) scale(1.06);
+            transform: rotate(6deg) translateY(-16px) scale(1.07);
             z-index: 100;
         }
         .letter-envelope {
             width: 100%; height: 100%;
-            background: #f0ead8;
-            border-radius: 4px;
-            box-shadow: 2px 5px 14px rgba(0,0,0,0.22);
+            background: #fef9f0;
+            border-radius: 6px;
+            box-shadow: 3px 6px 18px rgba(0,0,0,0.22);
             position: relative;
             overflow: visible;
             transition: box-shadow 0.4s ease;
         }
         #letter-trigger:hover .letter-envelope {
-            box-shadow: 0 30px 55px rgba(0,0,0,0.28);
+            box-shadow: 0 32px 60px rgba(0,0,0,0.28);
         }
-        /* envelope body background */
         .letter-env-body {
             position: absolute; inset: 0;
-            background: #f0ead8;
-            border-radius: 4px;
+            background: linear-gradient(160deg, #fef9f0 60%, #fdebd0 100%);
+            border-radius: 6px;
             overflow: hidden;
+            border: 1.5px solid #e8d9bc;
         }
-        /* bottom-left and bottom-right triangular folds */
+        /* bottom corner folds */
         .letter-env-body::before {
             content: '';
             position: absolute; inset: 0;
             background:
-                linear-gradient(135deg, #ddd5bc 49.5%, transparent 49.5%),
-                linear-gradient(225deg, #ddd5bc 49.5%, transparent 49.5%);
+                linear-gradient(135deg, #f0dfc0 49%, transparent 49%),
+                linear-gradient(225deg, #f0dfc0 49%, transparent 49%);
             background-size: 50% 100%;
             background-position: left bottom, right bottom;
             background-repeat: no-repeat;
         }
-        /* horizontal center seam line */
+        /* center seam */
         .letter-env-body::after {
             content: '';
             position: absolute;
             top: 50%; left: 0; right: 0;
-            height: 1px;
-            background: #c8bfa4;
+            height: 1px; background: #dcc9a8;
         }
-        /* top flap — separate div so it sits above the body */
+        /* top flap */
         .letter-env-flap {
-            position: absolute; top: -1px; left: 0; right: 0;
-            height: 68px; z-index: 2;
-            background: #e8e0ca;
-            clip-path: polygon(0 0, 100% 0, 50% 88%);
-            border-radius: 4px 4px 0 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            position: absolute; top: -1px; left: -1px; right: -1px;
+            height: 90px; z-index: 2;
+            background: linear-gradient(160deg, #fdebd0, #fad7a0);
+            clip-path: polygon(0 0, 100% 0, 50% 85%);
+            border-radius: 6px 6px 0 0;
+            border-top: 1.5px solid #e8d9bc;
+            border-left: 1.5px solid #e8d9bc;
+            border-right: 1.5px solid #e8d9bc;
         }
-        /* flap center crease */
-        .letter-env-flap::after {
-            content: '';
+        /* little heart on flap */
+        .letter-env-flap::before {
+            content: '♥';
             position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 1px; height: 68px;
-            background: linear-gradient(to bottom, #c8bfa4, transparent);
+            top: 22px; left: 50%; transform: translateX(-50%);
+            font-size: 18px; color: #e8748a;
+            filter: drop-shadow(0 1px 2px rgba(232,116,138,0.3));
         }
         .letter-stamp {
-            position: absolute; top: 10px; right: 10px; z-index: 4;
-            width: 30px; height: 36px;
-            background: #b03020;
-            border: 2.5px solid #fff;
-            outline: 1px dashed #fff;
-            box-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+            position: absolute; top: 12px; right: 14px; z-index: 4;
+            width: 38px; height: 46px;
+            background: linear-gradient(145deg, #e8748a, #c0392b);
+            border: 3px solid #fff;
+            border-radius: 3px;
+            outline: 1.5px dashed rgba(255,255,255,0.6);
+            box-shadow: 1px 2px 6px rgba(0,0,0,0.2);
             display: flex; align-items: center; justify-content: center;
-            font-size: 14px;
+            font-size: 18px;
         }
-        /* postmark circle */
         .letter-postmark {
-            position: absolute; top: 8px; right: 48px; z-index: 4;
-            width: 34px; height: 34px;
+            position: absolute; top: 14px; right: 60px; z-index: 4;
+            width: 38px; height: 38px;
             border: 1.5px solid #bbb; border-radius: 50%;
-            opacity: 0.45;
+            opacity: 0.4;
             display: flex; align-items: center; justify-content: center;
             font-family: 'VT323', monospace; font-size: 7px; color: #888;
             text-align: center; line-height: 1.2;
         }
         .letter-to {
-            position: absolute; bottom: 22px; left: 18px; z-index: 3;
-            font-family: 'Permanent Marker'; font-size: 0.6rem; color: #6a5a3a;
-            line-height: 1.6;
+            position: absolute; bottom: 24px; left: 20px; z-index: 3;
+            font-family: 'Permanent Marker'; font-size: 0.72rem; color: #7a6040;
+            line-height: 1.7;
+        }
+        /* little stars decoration */
+        .letter-deco {
+            position: absolute; bottom: 18px; right: 16px; z-index: 3;
+            font-size: 1rem; line-height: 1.4; text-align: right;
+            opacity: 0.5;
         }
         .letter-label {
-            position: absolute; bottom: -22px; left: 0; right: 0; text-align: center;
-            font-family: 'Permanent Marker'; font-size: 0.65rem; color: rgba(255,255,255,0.5);
+            position: absolute; bottom: -24px; left: 0; right: 0; text-align: center;
+            font-family: 'Permanent Marker'; font-size: 0.7rem; color: rgba(255,255,255,0.45);
         }
 
         /* --- LETTER OVERLAY --- */
@@ -966,8 +973,9 @@
             <div class="letter-stamp">✉</div>
             <div class="letter-postmark">PORT<br>FOLIO<br>2025</div>
             <div class="letter-to">To:<br>You ♥</div>
+            <div class="letter-deco">✦<br>✦</div>
         </div>
-        <div class="letter-label">write to me</div>
+        <div class="letter-label">write to me ♥</div>
     </div>
 
     <!-- DIARY -->
@@ -1766,7 +1774,7 @@
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
-                access_key: '5f3c7a2e-5b1d-4e8a-9c6f-2d1e3b4a7f8c',
+                access_key: '4d24a6b7-e690-46a9-b876-81df18fadd28',
                 name:    name,
                 email:   email || 'no-reply@portfolio.com',
                 message: message,
